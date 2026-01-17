@@ -1,0 +1,18 @@
+# Ignore Python Virtual Environment
+resume/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Ignore Node Modules (Frontend)
+node_modules/
+frontend/node_modules/
+.next/
+out/
+build/
+dist/
+
+# Ignore System Files
+.DS_Store
+*.log
