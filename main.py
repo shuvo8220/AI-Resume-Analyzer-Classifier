@@ -20,11 +20,14 @@ app.add_middleware(
 # Startup Logic
 @app.on_event("startup")
 def startup_event():
+    
+    import spacy
+    
     try:
-        import spacy
-        spacy.load("en_core_web_sm")
-    except:
-        os.system("python -m spacy download en_core_web_sm")
+        nlp = spacy.load("en_core_web_sm")
+        print(" NLP Model Loaded Successfully")
+    except Exception as e:
+        print(f" Error loading model: {e}")
 
     if not os.path.exists(classifier.MODEL_PATH):
         classifier.train_model()
@@ -82,7 +85,7 @@ async def serve_next_assets(path: str):
 if FRONTEND_OUT.exists():
     app.mount("/", StaticFiles(directory=str(FRONTEND_OUT), html=True), name="static")
 else:
-    print("\n❌ ERROR: 'frontend/out' directory missing. Please rebuild frontend.\n")
+    print("\n ERROR: 'frontend/out' directory missing. Please rebuild frontend.\n")
 
 if __name__ == "__main__":
     import uvicorn
