@@ -6,8 +6,8 @@ WORKDIR /app/frontend
 # Copy frontend dependency files
 COPY frontend/package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install dependencies (Legacy peer deps to avoid conflicts)
+RUN npm install --legacy-peer-deps
 
 # Copy all frontend source code
 COPY frontend/ ./
@@ -27,10 +27,14 @@ RUN apt-get update && apt-get install -y build-essential
 # Copy backend requirements
 COPY requirements.txt .
 
-# Install Python libraries
-RUN pip install --no-cache-dir -r requirements.txt
+# 1. Install CPU-only PyTorch (Much smaller & faster download)
+# This fixes the Timeout error by downloading ~150MB instead of 900MB
+RUN pip install --default-timeout=3000 torch --index-url https://download.pytorch.org/whl/cpu
 
-# --- CRITICAL FIX: Download SpaCy Model during BUILD time ---
+# 2. Install other dependencies with High Timeout
+RUN pip install --default-timeout=3000 --no-cache-dir -r requirements.txt
+
+# 3. Download SpaCy Model
 RUN python -m spacy download en_core_web_sm
 
 # Copy Backend Code
@@ -43,5 +47,5 @@ COPY --from=frontend-builder /app/frontend/out ./frontend/out
 # Expose the port 8000
 EXPOSE 8000
 
-# Command to run the server (Hardcoded port 8000 ensures stability)
+# Command to run the server
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
