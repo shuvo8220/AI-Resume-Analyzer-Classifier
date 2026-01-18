@@ -54,10 +54,15 @@ This is the easiest way to run the app without installing dependencies manually.
    cd AI-Resume-Analyzer
 
 2. **Build & Run**
-   docker build -t resume-app .
-   docker run -p 8000:8000 resume-app
+# Build the Docker Image
+docker build -t resume-app .
+
+# Run the Container
+docker run -p 8000:8000 resume-app
+
 3.**Access the App**
-   Open http://localhost:8000 in your browser.
+# Open in your browser.
+http://localhost:8000
    
 ### Method 2: Manual Setup
 # Create virtual environment
@@ -74,14 +79,22 @@ pip install -r requirements.txt
 python -m spacy download en_core_web_sm
 
 2 **Frontend Setup**
-   cd frontend
-   npm install
-   npm run build
-   cd ..
+# Go to frontend folder
+cd frontend
+
+# Install dependencies
+npm install
+
+# Build static files
+npm run build
+
+# Return to root folder
+cd ...
 
 
 3. **Run the Application**
-   python main.py
+# Start the Unified Server
+python main.py
 
 ### How It Works (Architecture)
 **Input** 
