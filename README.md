@@ -99,16 +99,11 @@ JSON response is sent back to the frontend, which renders the Dashboard.
 
 ### Project Structure
 
-resume-project/
-├── backend/
-│   ├── parser.py        # Logic for PDF parsing & Extraction
-│   ├── classifier.py    # ML Model Training & Prediction logic
-├── frontend/            # Next.js Application
-│   ├── src/app/         # UI Components & Pages
-│   ├── out/             # Static Build (Served by Python)
-├── main.py              # Entry point (FastAPI Server)
-├── Dockerfile           # Docker configuration
-├── requirements.txt     # Python Dependencies
-└── model.pkl            # Trained ML Model
+<img width="597" height="318" alt="Screenshot_1270" src="https://github.com/user-attachments/assets/e2eb7c4c-22ef-430f-bf9e-26af8685f9a1" />
+
+### Author
+**Developed by [shuvo saha]**
+**Built for the AI Assessment Project.**
+
 
    
